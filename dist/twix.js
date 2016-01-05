@@ -349,6 +349,8 @@
           spaceBeforeMeridiem: true,
           showDate: true,
           showDayOfWeek: false,
+          showTime: true,
+          showYear: true,
           implicitMinutes: true,
           implicitYear: true,
           yearFormat: 'YYYY',
@@ -378,7 +380,7 @@
             slot: 0
           });
         }
-        if (needDate && (!options.implicitYear || this._start.year() !== moment().year() || !this.isSame('y'))) {
+        if (needDate && options.showYear && (!options.implicitYear || this._start.year() !== moment().year() || !this.isSame('y'))) {
           fs.push({
             name: 'year',
             fn: function(date) {
@@ -431,7 +433,7 @@
             slot: 1
           });
         }
-        if (options.groupMeridiems && needsMeridiem && !this.allDay) {
+        if (options.groupMeridiems && needsMeridiem && !this.allDay && options.showTime) {
           fs.push({
             name: 'meridiem',
             fn: function(t) {
@@ -441,7 +443,7 @@
             pre: options.spaceBeforeMeridiem ? ' ' : ''
           });
         }
-        if (!this.allDay) {
+        if (!this.allDay && options.showTime) {
           fs.push({
             name: 'time',
             fn: function(date) {
